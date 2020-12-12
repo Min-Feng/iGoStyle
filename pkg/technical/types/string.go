@@ -26,7 +26,7 @@ func (StringTool) ToRawJSON(prettyJSON string) string {
 func (StringTool) ToPrettyJSON(rawJSON []byte) string {
 	var prettyJSON bytes.Buffer
 	if err := stdJSON.Indent(&prettyJSON, rawJSON, "", "  "); err != nil {
-		log.Fatal().Msgf("ToPrettyJSON", err)
+		log.Fatal().Msgf("ToPrettyJSON: %v", err)
 	}
 	return prettyJSON.String()
 }

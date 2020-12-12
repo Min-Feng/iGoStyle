@@ -3,7 +3,11 @@ module AmazingTalker
 go 1.13
 
 require (
+	github.com/Masterminds/squirrel v1.5.0
+	github.com/allegro/bigcache/v2 v2.2.5 // indirect
+	github.com/allegro/bigcache/v3 v3.0.0
 	github.com/davecgh/go-spew v1.1.1
+	github.com/go-sql-driver/mysql v1.4.0
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/mitchellh/mapstructure v1.4.0
 	github.com/morikuni/failure v0.13.0

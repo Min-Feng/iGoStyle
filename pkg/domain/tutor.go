@@ -1,8 +1,8 @@
 package domain
 
 type TutorRepo interface {
-	QueryBySlug(tutorSlug string) (Tutor, error)
-	QueryAllByProfessionalLanguage(id LanguageID) (TutorGroup, error)
+	QueryByTutorSlug(tutorSlug string) (Tutor, error)
+	QueryAllByLanguageID(id LanguageID) (TutorGroup, error)
 }
 
 type Tutor struct {

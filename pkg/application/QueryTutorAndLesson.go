@@ -34,7 +34,7 @@ type TutorAndLessonUseCase struct {
 func (uc *TutorAndLessonUseCase) QueryByLanguageSlug(langSlug string) ([]byte, error) {
 	languageID := uc.langMapTable.SlugToID(domain.LanguageSlug(langSlug))
 
-	tutors, err := uc.tutorRepo.QueryAllByProfessionalLanguage(languageID)
+	tutors, err := uc.tutorRepo.QueryAllByLanguageID(languageID)
 	if err != nil {
 		return nil, failure.Wrap(err)
 	}
@@ -43,11 +43,12 @@ func (uc *TutorAndLessonUseCase) QueryByLanguageSlug(langSlug string) ([]byte, e
 	if err != nil {
 		return nil, failure.Wrap(err)
 	}
+
 	return uc.viewFactory.createArrayData(lessons, tutors), nil
 }
 
 func (uc *TutorAndLessonUseCase) QueryByTutorSlug(tutorSlug string) ([]byte, error) {
-	tutor, err := uc.tutorRepo.QueryBySlug(tutorSlug)
+	tutor, err := uc.tutorRepo.QueryByTutorSlug(tutorSlug)
 	if err != nil {
 		return nil, failure.Wrap(err)
 	}
@@ -56,5 +57,6 @@ func (uc *TutorAndLessonUseCase) QueryByTutorSlug(tutorSlug string) ([]byte, err
 	if err != nil {
 		return nil, failure.Wrap(err)
 	}
+
 	return uc.viewFactory.createSingleData(&lesson, &tutor), nil
 }

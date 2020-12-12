@@ -1,4 +1,4 @@
-package errorutil
+package errutil
 
 import "github.com/morikuni/failure"
 

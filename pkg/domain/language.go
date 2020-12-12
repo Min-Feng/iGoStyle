@@ -9,15 +9,10 @@ type LanguageMapTableRepo interface {
 // 先猜是 1對1
 type LanguageMapTable struct {
 	MapSlugToID map[LanguageSlug]LanguageID
-	MapIDToSlug map[LanguageID]LanguageSlug
 }
 
 func (t LanguageMapTable) SlugToID(slug LanguageSlug) LanguageID {
 	return t.MapSlugToID[slug]
-}
-
-func (t LanguageMapTable) IDToSlug(id LanguageID) LanguageSlug {
-	return t.MapIDToSlug[id]
 }
 
 type LanguageID int

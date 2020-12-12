@@ -10,7 +10,7 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"AmazingTalker/pkg/technical/errorutil"
+	"AmazingTalker/pkg/technical/errutil"
 )
 
 // DebugMode 開發期間, 進行單元測試, 查看 log 格式是否符合預期
@@ -73,7 +73,7 @@ func SetGlobal(logLevel Level, wKind WriterKind) error {
 		}
 
 		msg = append(msg, failure.Message("so reset level to InfoLevel"))
-		return failure.New(errorutil.ErrValidate, msg...)
+		return failure.New(errutil.ErrValidate, msg...)
 	}
 
 	return nil

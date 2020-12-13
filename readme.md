@@ -19,3 +19,8 @@ CFG_NAME=dev go test -tags=integration ./... -count=1
 ```bash
 CFG_NAME=dev go test -test.run TestLessonRepo -testify.m ^Test_sqlByTutorIDGroup$
 ```
+
+## config file
+
+[config/dev.yaml](./config/dev.yaml)
+

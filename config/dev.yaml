@@ -1,5 +1,7 @@
 log_level: "debug" # enum = [debug, info]
+
 port: 8888
+
 mysql:
   user: "root"
   password: "1234"

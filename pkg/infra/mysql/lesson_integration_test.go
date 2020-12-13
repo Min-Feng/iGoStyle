@@ -25,10 +25,10 @@ type LessonRepoTestSuiteIntegration struct {
 func (ts *LessonRepoTestSuiteIntegration) Test_QueryByTutorID() {
 	logger.DebugMode()
 	db := injector.InfraPart()
-
 	_, repo, _ := injector.Infra(db)
 
 	actualLesson, err := repo.QueryByTutorID(1)
+
 	ts.Assert().NoError(err)
 	log.Debug().Msgf("\n%v", spew.Sdump(actualLesson))
 }
@@ -36,10 +36,10 @@ func (ts *LessonRepoTestSuiteIntegration) Test_QueryByTutorID() {
 func (ts *LessonRepoTestSuiteIntegration) Test_QueryAllByTutorIDGroup() {
 	logger.DebugMode()
 	db := injector.InfraPart()
-
 	_, repo, _ := injector.Infra(db)
 
 	actualLesson, err := repo.QueryAllByTutorIDGroup([]domain.TutorID{1, 2})
+
 	ts.Assert().NoError(err)
 	log.Debug().Msgf("\n%v", spew.Sdump(actualLesson))
 }

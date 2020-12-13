@@ -11,12 +11,12 @@ import (
 
 func NewLessonRepo(db *sqlx.DB) *LessonRepo {
 	cols := []string{"id", "tutor_id", "trial_price", "normal_price"}
-	return &LessonRepo{db: db, cols: cols}
+	return &LessonRepo{db: db, selectCols: cols}
 }
 
 type LessonRepo struct {
-	db   *sqlx.DB
-	cols []string
+	db         *sqlx.DB
+	selectCols []string
 }
 
 func (repo LessonRepo) QueryByTutorID(id domain.TutorID) (domain.Lesson, error) {
@@ -33,7 +33,7 @@ func (repo LessonRepo) QueryByTutorID(id domain.TutorID) (domain.Lesson, error) 
 
 func (repo LessonRepo) sqlByTutorID(id domain.TutorID) sq.SelectBuilder {
 	return sq.
-		Select(repo.cols...).
+		Select(repo.selectCols...).
 		From(TableNameTutorLessonPrices).
 		Where(sq.Eq{"tutor_id": id})
 }
@@ -52,7 +52,7 @@ func (repo LessonRepo) QueryAllByTutorIDGroup(ids []domain.TutorID) ([]*domain.L
 
 func (repo LessonRepo) sqlByTutorIDGroup(ids []domain.TutorID) sq.SelectBuilder {
 	return sq.
-		Select(repo.cols...).
+		Select(repo.selectCols...).
 		From(TableNameTutorLessonPrices).
 		Where(sq.Eq{"tutor_id": ids})
 }

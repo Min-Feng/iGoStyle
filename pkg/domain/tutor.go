@@ -6,12 +6,12 @@ type TutorRepo interface {
 }
 
 type Tutor struct {
-	ID                   TutorID      `json:"id,string" db:"tutor_id"`
-	Slug                 string       `json:"slug" db:"slug"`
-	Name                 string       `json:"name" db:"name"`
-	Headline             string       `json:"headline" db:"headline"`
-	Introduction         string       `json:"introduction" db:"introduction"`
-	ProfessionalLanguage []LanguageID `json:"teaching_languages" db:"language_id"`
+	ID                   TutorID      `json:"id,string"`
+	Slug                 string       `json:"slug"`
+	Name                 string       `json:"name"`
+	Headline             string       `json:"headline"`
+	Introduction         string       `json:"introduction"`
+	ProfessionalLanguage []LanguageID `json:"teaching_languages"`
 }
 
 type TutorID int

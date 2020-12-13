@@ -35,7 +35,7 @@ func (repo *TutorRepo) SaveByTutorSlug(tutorSlugKey string, tutor interface{}) e
 func (repo TutorRepo) QueryByTutorSlug(tutorSlug string) (*domain.Tutor, time.Duration, error) {
 	v, keyRemainTime, err := repo.memory.Get(KeyService{}.TutorSlug(tutorSlug))
 	if err != nil {
-		return nil, 0, failure.Wrap(handleGetErr(err))
+		return nil, 0, failure.Wrap(err)
 	}
 
 	tutor := new(domain.Tutor)
@@ -60,7 +60,7 @@ func (repo *TutorRepo) SaveAllByLanguageID(languageIDKey string, tutors interfac
 func (repo TutorRepo) QueryAllByLanguageID(id domain.LanguageID) (domain.TutorGroup, time.Duration, error) {
 	v, keyRemainTime, err := repo.memory.Get(KeyService{}.LanguageID(id))
 	if err != nil {
-		return nil, 0, failure.Wrap(handleGetErr(err))
+		return nil, 0, failure.Wrap(err)
 	}
 
 	tutors := make(domain.TutorGroup)

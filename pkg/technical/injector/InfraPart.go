@@ -3,12 +3,13 @@ package injector
 import (
 	"github.com/jmoiron/sqlx"
 
+	"AmazingTalker/pkg/infra/cache"
 	"AmazingTalker/pkg/infra/mysql"
 	"AmazingTalker/pkg/technical/configs"
 )
 
-func InfraPart() *sqlx.DB {
-	cfg := configs.NewConfig()
+func InfraPart(cfg *configs.Config) (*sqlx.DB, *cache.Cache) {
 	db := mysql.NewMySQL(&cfg.MySQL)
-	return db
+	iCache := cache.NewCache()
+	return db, iCache
 }

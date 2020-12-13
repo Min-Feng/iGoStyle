@@ -32,6 +32,9 @@ func policyWithoutCache(
 	if !failure.Is(cacheQueryErr, errutil.ErrNotFound) {
 		Err := failure.Wrap(cacheQueryErr)
 		log.Error().Msgf("%v", Err)
+		if log.Debug().Enabled() {
+			log.Error().Msgf("policyWithoutCache: ErrorStack=\n%+v", Err)
+		}
 	}
 
 	result, dbQueryErr := dbQuery()

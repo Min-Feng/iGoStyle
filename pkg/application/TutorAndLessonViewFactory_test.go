@@ -59,7 +59,7 @@ func (ts *TutorAndLessonViewFactoryTestSuite) Test_createArrayData() {
 }
 `)
 
-	f := new(TutorAndLessonViewFactory)
+	f := new(tutorAndLessonViewFactory)
 	actualJSON := f.createArrayData(lessons, tutors)
 	ts.Assert().Equal(expectedJSON, string(actualJSON))
 }
@@ -100,7 +100,7 @@ func (ts *TutorAndLessonViewFactoryTestSuite) Test_createSingleData() {
 }
 `)
 
-	f := new(TutorAndLessonViewFactory)
+	f := new(tutorAndLessonViewFactory)
 	actualJSON := f.createSingleData(lesson, tutor)
 	ts.Assert().Equal(expectedJSON, string(actualJSON))
 }

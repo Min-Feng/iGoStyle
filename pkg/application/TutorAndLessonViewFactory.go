@@ -6,35 +6,35 @@ import (
 	"AmazingTalker/pkg/domain"
 )
 
-type TutorAndLessonViewFactory struct{}
+type tutorAndLessonViewFactory struct{}
 
-func (f TutorAndLessonViewFactory) createArrayData(lessons []*domain.Lesson, tutors domain.TutorGroup) []byte {
-	views := make([]TutorAndLessonViewModel, 0, len(lessons))
+func (f tutorAndLessonViewFactory) createArrayData(lessons []*domain.Lesson, tutors domain.TutorGroup) []byte {
+	views := make([]tutorAndLessonViewModel, 0, len(lessons))
 	for _, lesson := range lessons {
 		tutor := tutors[lesson.TutorID]
 		view := f.createViewModel(lesson, tutor)
 		views = append(views, view)
 	}
-	data, _ := json.Marshal(&TutorAndLessonArrayData{views})
+	data, _ := json.Marshal(&tutorAndLessonArrayData{views})
 	return data
 }
 
-type TutorAndLessonArrayData struct {
-	Data []TutorAndLessonViewModel `json:"data"`
+type tutorAndLessonArrayData struct {
+	Data []tutorAndLessonViewModel `json:"data"`
 }
 
-func (f TutorAndLessonViewFactory) createSingleData(lesson *domain.Lesson, tutor *domain.Tutor) []byte {
+func (f tutorAndLessonViewFactory) createSingleData(lesson *domain.Lesson, tutor *domain.Tutor) []byte {
 	view := f.createViewModel(lesson, tutor)
-	data, _ := json.Marshal(&TutorAndLessonSingleData{view})
+	data, _ := json.Marshal(&tutorAndLessonSingleData{view})
 	return data
 }
 
-type TutorAndLessonSingleData struct {
-	TutorAndLessonViewModel `json:"data"`
+type tutorAndLessonSingleData struct {
+	tutorAndLessonViewModel `json:"data"`
 }
 
-func (f TutorAndLessonViewFactory) createViewModel(lesson *domain.Lesson, tutor *domain.Tutor) TutorAndLessonViewModel {
-	return TutorAndLessonViewModel{
+func (f tutorAndLessonViewFactory) createViewModel(lesson *domain.Lesson, tutor *domain.Tutor) tutorAndLessonViewModel {
+	return tutorAndLessonViewModel{
 		Tutor: *tutor,
 		Price: domain.LessonPrice{
 			Trial:  lesson.LessonPrice.Trial,
@@ -43,7 +43,7 @@ func (f TutorAndLessonViewFactory) createViewModel(lesson *domain.Lesson, tutor 
 	}
 }
 
-type TutorAndLessonViewModel struct {
+type tutorAndLessonViewModel struct {
 	domain.Tutor
 	Price domain.LessonPrice `json:"price_info"`
 }

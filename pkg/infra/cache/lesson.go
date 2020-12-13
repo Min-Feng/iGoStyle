@@ -35,7 +35,7 @@ func (repo *LessonRepo) SaveByTutorID(tutorIDKey string, lesson interface{}) err
 func (repo LessonRepo) QueryByTutorID(id domain.TutorID) (*domain.Lesson, time.Duration, error) {
 	v, keyRemainTime, err := repo.memory.Get(KeyService{}.TutorID(id))
 	if err != nil {
-		return nil, 0, failure.Wrap(handleGetErr(err))
+		return nil, 0, failure.Wrap(err)
 	}
 
 	lesson := new(domain.Lesson)
@@ -60,7 +60,7 @@ func (repo *LessonRepo) SaveAllByTutorIDGroup(tutorIDGroupKey string, lessons in
 func (repo LessonRepo) QueryAllByTutorIDGroup(ids []domain.TutorID) ([]*domain.Lesson, time.Duration, error) {
 	v, keyRemainTime, err := repo.memory.Get(KeyService{}.TutorIDGroup(ids))
 	if err != nil {
-		return nil, 0, failure.Wrap(handleGetErr(err))
+		return nil, 0, failure.Wrap(err)
 	}
 
 	lessons := make([]*domain.Lesson, 0)

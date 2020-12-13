@@ -9,9 +9,13 @@ import (
 	"AmazingTalker/pkg/infra/mysql"
 )
 
+func NewLessonRepo(cache *cache.LessonRepo, mysql *mysql.LessonRepo) *LessonRepo {
+	return &LessonRepo{cache: cache, mysql: mysql}
+}
+
 type LessonRepo struct {
-	cache         cache.LessonRepo
-	mysql         mysql.LessonRepo
+	cache         *cache.LessonRepo
+	mysql         *mysql.LessonRepo
 	raceProtector singleflight.Group
 }
 

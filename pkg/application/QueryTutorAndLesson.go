@@ -7,8 +7,8 @@ import (
 )
 
 func NewTutorAndLessonUseCase(
-	lessonRepo domain.LessonRepo,
 	tutorRepo domain.TutorRepo,
+	lessonRepo domain.LessonRepo,
 	langRep domain.LanguageMapTableRepo,
 ) *TutorAndLessonUseCase {
 
@@ -28,7 +28,7 @@ type TutorAndLessonUseCase struct {
 	lessonRepo   domain.LessonRepo
 	tutorRepo    domain.TutorRepo
 	langMapTable domain.LanguageMapTable
-	viewFactory  TutorAndLessonViewFactory
+	viewFactory  tutorAndLessonViewFactory
 }
 
 func (uc *TutorAndLessonUseCase) QueryByLanguageSlug(langSlug string) ([]byte, error) {

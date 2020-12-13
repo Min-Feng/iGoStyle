@@ -10,6 +10,6 @@ func NewConfig() *Config {
 	cfgName := os.Getenv("CFG_NAME")
 	center := NewLocalConfigCenter(cfgName)
 	cfg := center.GetConfig()
-	log.Info().Msg("New Project GetConfig successfully")
+	log.Info().Msg("GetConfig successfully")
 	return cfg
 }

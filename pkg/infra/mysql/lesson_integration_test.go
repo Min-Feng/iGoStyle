@@ -10,6 +10,8 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"AmazingTalker/pkg/domain"
+	"AmazingTalker/pkg/infra/mysql"
+	"AmazingTalker/pkg/technical/configs"
 	"AmazingTalker/pkg/technical/injector"
 	"AmazingTalker/pkg/technical/logger"
 )
@@ -24,10 +26,11 @@ type LessonRepoTestSuiteIntegration struct {
 
 func (ts *LessonRepoTestSuiteIntegration) Test_QueryByTutorID() {
 	logger.DebugMode()
-	db := injector.InfraPart()
-	_, repo, _ := injector.Infra(db)
+	cfg := configs.NewConfig()
+	db, _ := injector.InfraPart(cfg)
+	lessonRepo := mysql.NewLessonRepo(db)
 
-	actualLesson, err := repo.QueryByTutorID(1)
+	actualLesson, err := lessonRepo.QueryByTutorID(1)
 
 	ts.Assert().NoError(err)
 	log.Debug().Msgf("\n%v", spew.Sdump(actualLesson))
@@ -35,10 +38,11 @@ func (ts *LessonRepoTestSuiteIntegration) Test_QueryByTutorID() {
 
 func (ts *LessonRepoTestSuiteIntegration) Test_QueryAllByTutorIDGroup() {
 	logger.DebugMode()
-	db := injector.InfraPart()
-	_, repo, _ := injector.Infra(db)
+	cfg := configs.NewConfig()
+	db, _ := injector.InfraPart(cfg)
+	lessonRepo := mysql.NewLessonRepo(db)
 
-	actualLesson, err := repo.QueryAllByTutorIDGroup([]domain.TutorID{1, 2})
+	actualLesson, err := lessonRepo.QueryAllByTutorIDGroup([]domain.TutorID{1, 2})
 
 	ts.Assert().NoError(err)
 	log.Debug().Msgf("\n%v", spew.Sdump(actualLesson))

@@ -9,14 +9,17 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/assert"
 
+	"AmazingTalker/pkg/infra/mysql"
+	"AmazingTalker/pkg/technical/configs"
 	"AmazingTalker/pkg/technical/injector"
 	"AmazingTalker/pkg/technical/logger"
 )
 
 func TestTutorRepo_QueryAllByLanguageID(t *testing.T) {
 	logger.DebugMode()
-	db := injector.InfraPart()
-	tutorRepo, _, _ := injector.Infra(db)
+	cfg := configs.NewConfig()
+	db, _ := injector.InfraPart(cfg)
+	tutorRepo := mysql.NewTutorRepo(db)
 
 	tutors, err := tutorRepo.QueryAllByLanguageID(123)
 	assert.NoError(t, err)

@@ -1,12 +1,16 @@
 package cache
 
 import (
+	"errors"
 	"time"
 
 	"github.com/allegro/bigcache/v3"
+	"github.com/morikuni/failure"
+
+	"AmazingTalker/pkg/technical/errutil"
 )
 
-const timeBinaryLen = 14
+const timeBinaryLen = 15
 
 func NewCache() *Cache {
 	config := bigcache.DefaultConfig(10 * time.Minute)
@@ -22,22 +26,26 @@ type Cache struct {
 func (c *Cache) Set(key string, entry []byte) error {
 	insertKeyTime := c.Now()
 	v, _ := insertKeyTime.MarshalBinary()
-	entry = append(entry, v...)
-	return c.BigCache.Set(key, v)
+	// log.Debug().Int("time byte len", len(v)).Send()
+	v = append(v, entry...)
+	return failure.Translate(c.BigCache.Set(key, v), errutil.ErrServer)
 }
 
 func (c *Cache) Get(key string) (data []byte, keyRemainTime time.Duration, err error) {
 	value, err := c.BigCache.Get(key)
 	if err != nil {
-		return nil, 0, err
+		if errors.Is(err, bigcache.ErrEntryNotFound) {
+			return nil, 0, failure.Translate(err, errutil.ErrNotFound)
+		}
+		return nil, 0, failure.Translate(err, errutil.ErrServer)
 	}
 
 	var insertKeyTime time.Time
 	err = insertKeyTime.UnmarshalBinary(value[:timeBinaryLen])
 	if err != nil {
-		return nil, 0, err
+		return nil, 0, failure.Wrap(err)
 	}
 
 	diff := c.Now().Sub(insertKeyTime)
-	return value, diff, nil
+	return value[timeBinaryLen:], diff, nil
 }

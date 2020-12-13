@@ -22,13 +22,13 @@ type TutorRepo struct {
 	dataMapper tutorDataMapper
 }
 
-func (repo TutorRepo) QueryByTutorSlug(tutorSlug string) (domain.Tutor, error) {
+func (repo TutorRepo) QueryByTutorSlug(tutorSlug string) (*domain.Tutor, error) {
 	sqlString, args, _ := repo.sqlByTutorSlug(tutorSlug).ToSql()
 	t := make([]*Tutor, 0)
 
 	err := sqlx.Select(repo.db, &t, sqlString, args...)
 	if err != nil {
-		return domain.Tutor{}, failure.Translate(err, errutil.ErrDB)
+		return nil, failure.Translate(err, errutil.ErrDB)
 	}
 
 	return repo.dataMapper.toDomainTutorByTutorSlug(t), nil
@@ -59,7 +59,7 @@ func (repo TutorRepo) sqlByLanguageID(id domain.LanguageID) sq.SelectBuilder {
 	return repo.
 		joinSQL().
 		Columns(repo.selectCols...).
-		Where(SubQueryIN("t.id", subQ))
+		Where(subQueryIN("t.id", subQ))
 }
 
 func (repo TutorRepo) joinSQL() sq.SelectBuilder {
@@ -69,7 +69,7 @@ func (repo TutorRepo) joinSQL() sq.SelectBuilder {
 		InnerJoin(TableNameTutorLanguages + " as lang on t.id = lang.tutor_id")
 }
 
-func SubQueryIN(property string, query sq.SelectBuilder) sq.Sqlizer {
+func subQueryIN(property string, query sq.SelectBuilder) sq.Sqlizer {
 	sql, args, _ := query.ToSql()
 	subQuery := fmt.Sprintf("%s IN (%s)", property, sql)
 	return sq.Expr(subQuery, args...)

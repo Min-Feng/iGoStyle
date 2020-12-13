@@ -2,32 +2,17 @@ package cache
 
 import (
 	"errors"
-	"strconv"
-	"strings"
 
 	"github.com/allegro/bigcache/v3"
 	"github.com/morikuni/failure"
 
-	"AmazingTalker/pkg/domain"
 	"AmazingTalker/pkg/technical/errutil"
 )
 
-type keyService struct{}
+type SaverFunc func(key string, data interface{}) error
 
-func (keyService) LanguageID(id domain.LanguageID) string {
-	return strconv.Itoa(int(id))
-}
-
-func (keyService) TutorID(id domain.TutorID) string {
-	return strconv.Itoa(int(id))
-}
-
-func (keyService) TutorIDGroup(ids []domain.TutorID) string {
-	var b strings.Builder
-	for _, id := range ids {
-		b.WriteString(strconv.Itoa(int(id)))
-	}
-	return b.String()
+func (fn SaverFunc) Save(key string, data interface{}) error {
+	return fn(key, data)
 }
 
 func handleGetErr(err error) error {

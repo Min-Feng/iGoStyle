@@ -1,7 +1,9 @@
 package domain
 
+import "sort"
+
 type TutorRepo interface {
-	QueryByTutorSlug(tutorSlug string) (Tutor, error)
+	QueryByTutorSlug(tutorSlug string) (*Tutor, error)
 	QueryAllByLanguageID(id LanguageID) (TutorGroup, error)
 }
 
@@ -22,5 +24,8 @@ func (tutors TutorGroup) IDGroup() []TutorID {
 	for _, tutor := range tutors {
 		ids = append(ids, tutor.ID)
 	}
+	sort.Slice(ids, func(i, j int) bool {
+		return ids[i] < ids[j]
+	})
 	return ids
 }

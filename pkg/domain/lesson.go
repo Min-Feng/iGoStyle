@@ -1,7 +1,7 @@
 package domain
 
 type LessonRepo interface {
-	QueryByTutorID(id TutorID) (Lesson, error)
+	QueryByTutorID(id TutorID) (*Lesson, error)
 	QueryAllByTutorIDGroup(ids []TutorID) ([]*Lesson, error)
 }
 

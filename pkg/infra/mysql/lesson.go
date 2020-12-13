@@ -19,16 +19,16 @@ type LessonRepo struct {
 	selectCols []string
 }
 
-func (repo LessonRepo) QueryByTutorID(id domain.TutorID) (domain.Lesson, error) {
+func (repo LessonRepo) QueryByTutorID(id domain.TutorID) (*domain.Lesson, error) {
 	sqlString, args, _ := repo.sqlByTutorID(id).ToSql()
 
 	lesson := new(domain.Lesson)
 	err := sqlx.Get(repo.db, lesson, sqlString, args...)
 	if err != nil {
-		return domain.Lesson{}, failure.Translate(err, errutil.ErrDB)
+		return nil, failure.Translate(err, errutil.ErrDB)
 	}
 
-	return *lesson, nil
+	return lesson, nil
 }
 
 func (repo LessonRepo) sqlByTutorID(id domain.TutorID) sq.SelectBuilder {

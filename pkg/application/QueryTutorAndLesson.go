@@ -58,5 +58,5 @@ func (uc *TutorAndLessonUseCase) QueryByTutorSlug(tutorSlug string) ([]byte, err
 		return nil, failure.Wrap(err)
 	}
 
-	return uc.viewFactory.createSingleData(&lesson, &tutor), nil
+	return uc.viewFactory.createSingleData(lesson, tutor), nil
 }

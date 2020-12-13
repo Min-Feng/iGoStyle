@@ -4,53 +4,66 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/allegro/bigcache/v3"
 	"github.com/morikuni/failure"
 
 	"AmazingTalker/pkg/domain"
 	"AmazingTalker/pkg/technical/errutil"
 )
 
-func NewLessonRepo(expiredTime time.Duration) *LessonRepo {
-	config := bigcache.DefaultConfig(expiredTime)
-	cache, _ := bigcache.NewBigCache(config)
-	return &LessonRepo{cache}
+func NewLessonRepo(c *Cache) *LessonRepo {
+	return &LessonRepo{c}
 }
 
 type LessonRepo struct {
-	memory *bigcache.BigCache
+	memory *Cache
 }
 
-func (repo *LessonRepo) SaveLessonByTutorID(id domain.TutorID, lesson domain.Lesson) error {
+func (repo *LessonRepo) SaveByTutorID(tutorIDKey string, lesson interface{}) error {
+	_, ok := lesson.(*domain.Lesson)
+	if !ok {
+		panic("developer error")
+	}
+
 	v, _ := json.Marshal(lesson)
-	err := repo.memory.Set(keyService{}.TutorID(id), v)
-	return failure.Translate(err, errutil.ErrServer)
+	err := repo.memory.Set(tutorIDKey, v)
+	if err != nil {
+		return failure.Translate(err, errutil.ErrServer)
+	}
+	return nil
 }
 
-func (repo LessonRepo) QueryByTutorID(id domain.TutorID) (domain.Lesson, error) {
-	v, err := repo.memory.Get(keyService{}.TutorID(id))
+func (repo LessonRepo) QueryByTutorID(id domain.TutorID) (*domain.Lesson, time.Duration, error) {
+	v, keyRemainTime, err := repo.memory.Get(KeyService{}.TutorID(id))
 	if err != nil {
-		return domain.Lesson{}, failure.Wrap(handleGetErr(err))
+		return nil, 0, failure.Wrap(handleGetErr(err))
 	}
 
 	lesson := new(domain.Lesson)
 	json.Unmarshal(v, lesson)
-	return *lesson, nil
+	return lesson, keyRemainTime, nil
 }
 
-func (repo *LessonRepo) SaveAllByTutorIDGroup(ids []domain.TutorID, lessons []*domain.Lesson) error {
+func (repo *LessonRepo) SaveAllByTutorIDGroup(tutorIDGroupKey string, lessons interface{}) error {
+	_, ok := lessons.([]*domain.Lesson)
+	if !ok {
+		panic("developer error")
+	}
+
 	v, _ := json.Marshal(lessons)
-	err := repo.memory.Set(keyService{}.TutorIDGroup(ids), v)
-	return failure.Translate(err, errutil.ErrServer)
+	err := repo.memory.Set(tutorIDGroupKey, v)
+	if err != nil {
+		return failure.Translate(err, errutil.ErrServer)
+	}
+	return nil
 }
 
-func (repo LessonRepo) QueryAllByTutorIDGroup(ids []domain.TutorID) ([]*domain.Lesson, error) {
-	v, err := repo.memory.Get(keyService{}.TutorIDGroup(ids))
+func (repo LessonRepo) QueryAllByTutorIDGroup(ids []domain.TutorID) ([]*domain.Lesson, time.Duration, error) {
+	v, keyRemainTime, err := repo.memory.Get(KeyService{}.TutorIDGroup(ids))
 	if err != nil {
-		return nil, failure.Wrap(handleGetErr(err))
+		return nil, 0, failure.Wrap(handleGetErr(err))
 	}
 
 	lessons := make([]*domain.Lesson, 0)
 	json.Unmarshal(v, &lessons)
-	return lessons, nil
+	return lessons, keyRemainTime, nil
 }

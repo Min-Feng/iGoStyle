@@ -13,11 +13,11 @@ type Tutor struct {
 
 type tutorDataMapper struct{}
 
-func (m tutorDataMapper) toDomainTutorByTutorSlug(data []*Tutor) domain.Tutor {
-	var tutor domain.Tutor
+func (m tutorDataMapper) toDomainTutorByTutorSlug(data []*Tutor) *domain.Tutor {
+	tutor := new(domain.Tutor)
 	for i, t := range data {
 		if i == 0 {
-			tutor = domain.Tutor{
+			tutor = &domain.Tutor{
 				ID:                   t.ID,
 				Slug:                 t.Slug,
 				Name:                 t.Name,

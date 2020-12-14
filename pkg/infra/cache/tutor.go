@@ -6,8 +6,8 @@ import (
 
 	"github.com/morikuni/failure"
 
-	"AmazingTalker/pkg/domain"
-	"AmazingTalker/pkg/technical/errutil"
+	"iGoStyle/pkg/domain"
+	"iGoStyle/pkg/technical/errutil"
 )
 
 func NewTutorRepo(c *Cache) *TutorRepo {

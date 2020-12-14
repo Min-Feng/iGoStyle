@@ -23,4 +23,3 @@ CFG_NAME=dev go test -test.run TestLessonRepo -testify.m ^Test_sqlByTutorIDGroup
 ## config file
 
 [config/dev.yaml](./config/dev.yaml)
-

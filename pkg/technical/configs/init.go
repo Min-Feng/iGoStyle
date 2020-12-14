@@ -4,5 +4,5 @@ package configs
 var ModuleDirectory []string
 
 func init() {
-	ModuleDirectory = []string{"AmazingTalker"}
+	ModuleDirectory = []string{"iGoStyle"}
 }

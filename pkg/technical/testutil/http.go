@@ -5,13 +5,13 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"AmazingTalker/pkg/technical/types"
+	"iGoStyle/pkg/technical/types"
 )
 
-func HTTPResponseBody(router http.Handler, httpMethod string, url string, body io.Reader) string {
+func HTTPResponse(router http.Handler, httpMethod string, url string, body io.Reader) string {
 	wRecorder := httptest.NewRecorder()
 	req := httptest.NewRequest(httpMethod, url, body)
 	router.ServeHTTP(wRecorder, req)
-	actualBody := types.StringTool{}.ToPrettyJSON(wRecorder.Body.Bytes())
+	actualBody := types.StringUtil{}.ToPrettyJSON(wRecorder.Body.Bytes())
 	return actualBody
 }

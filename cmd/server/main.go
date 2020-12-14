@@ -3,9 +3,9 @@ package main
 import (
 	"github.com/rs/zerolog/log"
 
-	"AmazingTalker/pkg/technical/configs"
-	"AmazingTalker/pkg/technical/injector"
-	"AmazingTalker/pkg/technical/logger"
+	"iGoStyle/pkg/technical/configs"
+	"iGoStyle/pkg/technical/injector"
+	"iGoStyle/pkg/technical/logger"
 )
 
 func init() {
@@ -15,9 +15,8 @@ func init() {
 func main() {
 	cfg := configs.NewConfig()
 	logger.SetGlobal(cfg.LogLevel, logger.WriterKindHuman)
-	// spew.Dump(cfg)
 
-	router := injector.Project(cfg)
+	router := injector.Server(cfg)
 
 	err := router.Run(":" + cfg.Port)
 	if err != nil {

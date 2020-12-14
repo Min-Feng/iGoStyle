@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 
-	"AmazingTalker/pkg/technical/logger"
+	"iGoStyle/pkg/technical/logger"
 )
 
 func NewRouter(l logger.Level) *Router {

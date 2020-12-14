@@ -9,10 +9,10 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/assert"
 
-	"AmazingTalker/pkg/infra/mysql"
-	"AmazingTalker/pkg/technical/configs"
-	"AmazingTalker/pkg/technical/injector"
-	"AmazingTalker/pkg/technical/logger"
+	"iGoStyle/pkg/infra/mysql"
+	"iGoStyle/pkg/technical/configs"
+	"iGoStyle/pkg/technical/injector"
+	"iGoStyle/pkg/technical/logger"
 )
 
 func TestTutorRepo_QueryAllByLanguageID(t *testing.T) {

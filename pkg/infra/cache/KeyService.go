@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"AmazingTalker/pkg/domain"
+	"iGoStyle/pkg/domain"
 )
 
 type KeyService struct{}

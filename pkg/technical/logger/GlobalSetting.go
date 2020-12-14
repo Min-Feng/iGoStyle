@@ -10,7 +10,7 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"AmazingTalker/pkg/technical/errutil"
+	"iGoStyle/pkg/technical/errutil"
 )
 
 // DebugMode 開發期間, 進行單元測試, 查看 log 格式是否符合預期

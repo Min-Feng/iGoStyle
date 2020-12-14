@@ -7,8 +7,8 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/morikuni/failure"
 
-	"AmazingTalker/pkg/domain"
-	"AmazingTalker/pkg/technical/errutil"
+	"iGoStyle/pkg/domain"
+	"iGoStyle/pkg/technical/errutil"
 )
 
 func NewTutorRepo(db *sqlx.DB) *TutorRepo {

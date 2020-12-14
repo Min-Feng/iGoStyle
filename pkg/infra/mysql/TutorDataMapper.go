@@ -1,6 +1,6 @@
 package mysql
 
-import "AmazingTalker/pkg/domain"
+import "iGoStyle/pkg/domain"
 
 type Tutor struct {
 	ID           domain.TutorID    `db:"tutor_id"`

@@ -3,16 +3,16 @@ package injector
 import (
 	"github.com/jmoiron/sqlx"
 
-	"AmazingTalker/pkg/application"
-	"AmazingTalker/pkg/domain"
-	"AmazingTalker/pkg/driving/api"
-	"AmazingTalker/pkg/infra/cache"
-	"AmazingTalker/pkg/infra/mysql"
-	"AmazingTalker/pkg/infra/repository"
-	"AmazingTalker/pkg/technical/configs"
+	"iGoStyle/pkg/application"
+	"iGoStyle/pkg/domain"
+	"iGoStyle/pkg/driving/api"
+	"iGoStyle/pkg/infra/cache"
+	"iGoStyle/pkg/infra/mysql"
+	"iGoStyle/pkg/infra/repository"
+	"iGoStyle/pkg/technical/configs"
 )
 
-func Project(cfg *configs.Config) *api.Router {
+func Server(cfg *configs.Config) *api.Router {
 	db, iCache := InfraPart(cfg)
 
 	tutorRepo, lessonRepo, languageMapTableRepo := Infra(db, iCache)
@@ -46,7 +46,7 @@ func Infra(db *sqlx.DB, iCache *cache.Cache) (
 func Application(
 	tutorRepo domain.TutorRepo,
 	lessonRepo domain.LessonRepo,
-	langTableRepo domain.LanguageMapTableRepo,
+	langTableRepo domain.LanguageLookupFormRepo,
 ) *application.TutorAndLessonUseCase {
 
 	tutorAndLessonUC := application.NewTutorAndLessonUseCase(tutorRepo, lessonRepo, langTableRepo)
@@ -56,7 +56,7 @@ func Application(
 
 func DrivingAdapter(cfg *configs.Config, uc *application.TutorAndLessonUseCase) *api.Router {
 	router := api.NewRouter(cfg.LogLevel)
-	handler := api.NewTutorAndLessonHandler(uc)
+	handler := api.NewHandler(uc)
 	api.Register(router, handler)
 	return router
 }

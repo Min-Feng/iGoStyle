@@ -6,8 +6,8 @@ import (
 	"github.com/morikuni/failure"
 	"github.com/rs/zerolog/log"
 
-	"AmazingTalker/pkg/infra/cache"
-	"AmazingTalker/pkg/technical/errutil"
+	"iGoStyle/pkg/infra/cache"
+	"iGoStyle/pkg/technical/errutil"
 )
 
 func newPolicyWithoutCache(

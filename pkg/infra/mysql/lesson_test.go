@@ -6,8 +6,8 @@ import (
 	sq "github.com/Masterminds/squirrel"
 	"github.com/stretchr/testify/suite"
 
-	"AmazingTalker/pkg/domain"
-	"AmazingTalker/pkg/technical/types"
+	"iGoStyle/pkg/domain"
+	"iGoStyle/pkg/technical/types"
 )
 
 func TestLessonRepo(t *testing.T) {
@@ -30,7 +30,7 @@ func (ts *LessonRepoTestSuite) Test_sqlByTutorID() {
 
 func (ts *LessonRepoTestSuite) Test_sqlByTutorIDGroup() {
 	repo := NewLessonRepo(nil)
-	expectedSQL := types.StringTool{}.ToRawSQL(`
+	expectedSQL := types.StringUtil{}.ToRawSQL(`
 SELECT id, tutor_id, trial_price, normal_price 
 FROM tutor_lesson_prices 
 WHERE tutor_id IN ('1','2','4')

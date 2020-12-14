@@ -11,9 +11,9 @@ import (
 	"github.com/tdewolff/minify/v2/json"
 )
 
-type StringTool struct{}
+type StringUtil struct{}
 
-func (StringTool) ToRawJSON(prettyJSON string) string {
+func (StringUtil) ToRawJSON(prettyJSON string) string {
 	m := minify.New()
 	m.AddFuncRegexp(regexp.MustCompile("[/+]json$"), json.Minify)
 	rawJSON, err := m.String("application/json", prettyJSON)
@@ -23,7 +23,7 @@ func (StringTool) ToRawJSON(prettyJSON string) string {
 	return rawJSON
 }
 
-func (StringTool) ToPrettyJSON(rawJSON []byte) string {
+func (StringUtil) ToPrettyJSON(rawJSON []byte) string {
 	var prettyJSON bytes.Buffer
 	if err := stdJSON.Indent(&prettyJSON, rawJSON, "", "  "); err != nil {
 		log.Fatal().Msgf("ToPrettyJSON: %v", err)
@@ -31,7 +31,7 @@ func (StringTool) ToPrettyJSON(rawJSON []byte) string {
 	return prettyJSON.String()
 }
 
-func (StringTool) ToRawSQL(prettySQL string) (rawSQL string) {
+func (StringUtil) ToRawSQL(prettySQL string) (rawSQL string) {
 	rawSQL = prettySQL
 	for _, s := range []string{"\t", "\n"} {
 		rawSQL = strings.ReplaceAll(rawSQL, s, "")

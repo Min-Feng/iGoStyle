@@ -3,7 +3,7 @@ package application
 import (
 	"encoding/json"
 
-	"AmazingTalker/pkg/domain"
+	"iGoStyle/pkg/domain"
 )
 
 type tutorAndLessonViewFactory struct{}

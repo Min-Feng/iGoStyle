@@ -3,9 +3,9 @@ package injector
 import (
 	"github.com/jmoiron/sqlx"
 
-	"AmazingTalker/pkg/infra/cache"
-	"AmazingTalker/pkg/infra/mysql"
-	"AmazingTalker/pkg/technical/configs"
+	"iGoStyle/pkg/infra/cache"
+	"iGoStyle/pkg/infra/mysql"
+	"iGoStyle/pkg/technical/configs"
 )
 
 func InfraPart(cfg *configs.Config) (*sqlx.DB, *cache.Cache) {

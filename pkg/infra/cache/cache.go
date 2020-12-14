@@ -7,7 +7,7 @@ import (
 	"github.com/allegro/bigcache/v3"
 	"github.com/morikuni/failure"
 
-	"AmazingTalker/pkg/technical/errutil"
+	"iGoStyle/pkg/technical/errutil"
 )
 
 const timeBinaryLen = 15

@@ -3,16 +3,16 @@ package application
 import (
 	"github.com/morikuni/failure"
 
-	"AmazingTalker/pkg/domain"
+	"iGoStyle/pkg/domain"
 )
 
 func NewTutorAndLessonUseCase(
 	tutorRepo domain.TutorRepo,
 	lessonRepo domain.LessonRepo,
-	langRep domain.LanguageMapTableRepo,
+	langRep domain.LanguageLookupFormRepo,
 ) *TutorAndLessonUseCase {
 
-	languageMapTable, err := langRep.LanguageMapTable()
+	languageMapTable, err := langRep.LanguageLookupForm()
 	if err != nil {
 		panic(err)
 	}
@@ -27,7 +27,7 @@ func NewTutorAndLessonUseCase(
 type TutorAndLessonUseCase struct {
 	lessonRepo   domain.LessonRepo
 	tutorRepo    domain.TutorRepo
-	langMapTable domain.LanguageMapTable
+	langMapTable domain.LanguageLookupForm
 	viewFactory  tutorAndLessonViewFactory
 }
 

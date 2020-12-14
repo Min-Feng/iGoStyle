@@ -5,7 +5,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/rs/zerolog/log"
 
-	"AmazingTalker/pkg/technical/configs"
+	"iGoStyle/pkg/technical/configs"
 )
 
 const (

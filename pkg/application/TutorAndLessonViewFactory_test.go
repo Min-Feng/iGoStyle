@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"AmazingTalker/pkg/domain"
-	"AmazingTalker/pkg/technical/types"
+	"iGoStyle/pkg/domain"
+	"iGoStyle/pkg/technical/types"
 )
 
 func TestTutorAndLessonViewFactory(t *testing.T) {
@@ -40,7 +40,7 @@ func (ts *TutorAndLessonViewFactoryTestSuite) Test_createArrayData() {
 		},
 	}
 
-	expectedJSON := types.StringTool{}.ToRawJSON(`
+	expectedJSON := types.StringUtil{}.ToRawJSON(`
 {
   "data":[
     {
@@ -83,7 +83,7 @@ func (ts *TutorAndLessonViewFactoryTestSuite) Test_createSingleData() {
 		ProfessionalLanguage: []domain.LanguageID{123, 121},
 	}
 
-	expectedJSON := types.StringTool{}.ToRawJSON(`
+	expectedJSON := types.StringUtil{}.ToRawJSON(`
 {
   "data": {
     "id": "1",

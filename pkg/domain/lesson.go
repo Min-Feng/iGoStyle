@@ -5,9 +5,6 @@ type LessonRepo interface {
 	QueryAllByTutorIDGroup(ids []TutorID) ([]*Lesson, error)
 }
 
-// 看範例 sql 以及 json
-// 同一個老師, 教不同語言, 價錢是一樣的?
-// 好像有點怪
 type Lesson struct {
 	LessonID int     `db:"id"`
 	TutorID  TutorID `db:"tutor_id"`

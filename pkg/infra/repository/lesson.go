@@ -2,11 +2,12 @@ package repository
 
 import (
 	"github.com/morikuni/failure"
+	"github.com/rs/zerolog/log"
 	"golang.org/x/sync/singleflight"
 
-	"AmazingTalker/pkg/domain"
-	"AmazingTalker/pkg/infra/cache"
-	"AmazingTalker/pkg/infra/mysql"
+	"iGoStyle/pkg/domain"
+	"iGoStyle/pkg/infra/cache"
+	"iGoStyle/pkg/infra/mysql"
 )
 
 func NewLessonRepo(cache *cache.LessonRepo, mysql *mysql.LessonRepo) *LessonRepo {
@@ -69,6 +70,7 @@ func (repo *LessonRepo) QueryAllByTutorIDGroup(ids []domain.TutorID) ([]*domain.
 		repo.cache.SaveAllByTutorIDGroup,
 	)
 
-	result, err, _ := repo.raceProtector.Do("QueryAllByTutorIDGroup", policyFn)
+	result, err, shared := repo.raceProtector.Do("QueryAllByTutorIDGroup", policyFn)
+	log.Debug().Bool("shared", shared).Send()
 	return result.([]*domain.Lesson), failure.Wrap(err)
 }

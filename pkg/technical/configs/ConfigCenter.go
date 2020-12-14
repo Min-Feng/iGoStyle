@@ -3,7 +3,7 @@ package configs
 import (
 	"fmt"
 
-	"AmazingTalker/pkg/technical/logger"
+	"iGoStyle/pkg/technical/logger"
 )
 
 type ConfigCenter interface {

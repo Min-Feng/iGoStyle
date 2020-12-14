@@ -9,11 +9,11 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/suite"
 
-	"AmazingTalker/pkg/domain"
-	"AmazingTalker/pkg/infra/mysql"
-	"AmazingTalker/pkg/technical/configs"
-	"AmazingTalker/pkg/technical/injector"
-	"AmazingTalker/pkg/technical/logger"
+	"iGoStyle/pkg/domain"
+	"iGoStyle/pkg/infra/mysql"
+	"iGoStyle/pkg/technical/configs"
+	"iGoStyle/pkg/technical/injector"
+	"iGoStyle/pkg/technical/logger"
 )
 
 func TestIntegrationLessonRepo(t *testing.T) {

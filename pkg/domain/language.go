@@ -1,17 +1,14 @@
 package domain
 
-type LanguageMapTableRepo interface {
-	LanguageMapTable() (LanguageMapTable, error)
+type LanguageLookupFormRepo interface {
+	LanguageLookupForm() (LanguageLookupForm, error)
 }
 
-// 從 sql 文件
-// 無法確定 LanguageID 與 LanguageSlug 的關係
-// 先猜是 1對1
-type LanguageMapTable struct {
+type LanguageLookupForm struct {
 	MapSlugToID map[LanguageSlug]LanguageID
 }
 
-func (t LanguageMapTable) SlugToID(slug LanguageSlug) LanguageID {
+func (t LanguageLookupForm) SlugToID(slug LanguageSlug) LanguageID {
 	return t.MapSlugToID[slug]
 }
 

@@ -4,6 +4,6 @@ package logger
 var ModuleDirectory []string
 
 func init() {
-	ModuleDirectory = []string{"AmazingTalker/"}
+	ModuleDirectory = []string{"iGoStyle/"}
 	UnitTestMode()
 }

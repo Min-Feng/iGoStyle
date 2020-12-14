@@ -6,20 +6,20 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 
-	"AmazingTalker/pkg/application"
+	"iGoStyle/pkg/application"
 )
 
-func NewTutorAndLessonHandler(uc *application.TutorAndLessonUseCase) *TutorAndLessonHandler {
-	return &TutorAndLessonHandler{uc: uc}
+func NewHandler(uc *application.TutorAndLessonUseCase) *Handler {
+	return &Handler{uc: uc}
 }
 
-type TutorAndLessonHandler struct {
+type Handler struct {
 	uc *application.TutorAndLessonUseCase
 }
 
-func (h TutorAndLessonHandler) GetTutors(ctx *gin.Context) {
+func (h Handler) GetTutors(ctx *gin.Context) {
 	languageSlug := ctx.Param("languageSlug")
-	b, err := h.uc.QueryByLanguageSlug(languageSlug)
+	response, err := h.uc.QueryByLanguageSlug(languageSlug)
 	if err != nil {
 		log.Error().Msgf("%v", err)
 		if log.Debug().Enabled() {
@@ -28,12 +28,12 @@ func (h TutorAndLessonHandler) GetTutors(ctx *gin.Context) {
 		ctx.Data(http.StatusInternalServerError, jsonContextType, nil)
 		return
 	}
-	ctx.Data(http.StatusOK, jsonContextType, b)
+	ctx.Data(http.StatusOK, jsonContextType, response)
 }
 
-func (h TutorAndLessonHandler) GetTutor(ctx *gin.Context) {
+func (h Handler) GetTutor(ctx *gin.Context) {
 	tutorSlug := ctx.Param("tutorSlug")
-	b, err := h.uc.QueryByTutorSlug(tutorSlug)
+	response, err := h.uc.QueryByTutorSlug(tutorSlug)
 	if err != nil {
 		log.Error().Msgf("%v", err)
 		if log.Debug().Enabled() {
@@ -42,5 +42,5 @@ func (h TutorAndLessonHandler) GetTutor(ctx *gin.Context) {
 		ctx.Data(http.StatusInternalServerError, jsonContextType, nil)
 		return
 	}
-	ctx.Data(http.StatusOK, jsonContextType, b)
+	ctx.Data(http.StatusOK, jsonContextType, response)
 }

@@ -4,9 +4,9 @@ import (
 	"github.com/morikuni/failure"
 	"golang.org/x/sync/singleflight"
 
-	"AmazingTalker/pkg/domain"
-	"AmazingTalker/pkg/infra/cache"
-	"AmazingTalker/pkg/infra/mysql"
+	"iGoStyle/pkg/domain"
+	"iGoStyle/pkg/infra/cache"
+	"iGoStyle/pkg/infra/mysql"
 )
 
 func NewTutorRepo(cache *cache.TutorRepo, mysql *mysql.TutorRepo) *TutorRepo {

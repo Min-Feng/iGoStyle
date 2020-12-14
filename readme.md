@@ -3,7 +3,7 @@
 ## go run
 
 ```bash
-CFG_NAME=dev CGO_ENABLED=0 go run ./cmd/main.go
+CFG_NAME=dev CGO_ENABLED=0 go run ./cmd/server/main.go
 ```
 
 ## go test
